@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <title>Rick y Morty</title>
+    <style>
+     body {
+      font-family: Arial,  sans-serif;
+      background-color: beige;
+      padding: 20px;
+      text-align: center;
+    }
+    .character {
+      width: 200px;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(26, 110, 23, 0.877);
+      transition: transform 0.4s;
+    }
+   
+    #character-container{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+    .character img{
+      width: 100%;
+      height: 200px;
+      border-radius: 10px 10px 0px 0px ; 
+    }
+    .character:hover{
+      transform: translateY(-5px);
+    }
+    .info{
+      padding: 15px;
+      background-color: beige;
+      border-radius: 0 0 5px 5px; 
+    }
+    .info p{
+      margin: 10px 0;
+      color: #446b5c;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #446b5c;
+      text-transform: capitalize;
+      letter-spacing: 2px;
+    }
+    </style>
+    <div style="margin :24px;">
+    <nav class="nav navbar-light" style ="background-color: rgba(173, 169, 173, 0.76);"> 
+        <div class="container">
+            <a class="navbar-brand" href="index.html" style="color: rgb(7, 7, 7);">INICIO</a>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="nav navbar-nav">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">UNIDAD 1</a>
+                        <div class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item"
+                    href="perfil.html">Perfil</a><br>
+                    <a class="dropdown-item"
+                    href="calculadora.html">Calculadora</a><br>
+                    <a class="dropdown-item"
+                    href="tienda.html">Tienda parte 1</a>
+
+                    </div>
+                        
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false" >UNIDAD 2</a>
+                        <div class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item"
+                    href="tiendapedido.html">tienda pedido</a><br>
+                    <a class="dropdown-item"
+                    href="json.html">JSON</a><br>
+                    <a class="dropdown-item"
+                    href="tiendapedido2.html">Tienda parte 2</a>
+                    </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false" >UNIDAD 3</a>
+                        <div class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item"
+                    href="basededatos.html">base de datos</a><br>
+                    <a class="dropdown-item"
+                    href="peliculas.html">Peliculas</a><br>
+                   
+                    </div>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+    </style>
+  </head>
+  <body>
+    <h1>Personajes de Rick y Morty</h1>
+    <div id="character-container"></div>
+    <script>
+      fetch('https://rickandmortyapi.com/api/character')
+        .then(response => response.json())
+        .then(data => {
+          const characterContainer = document.getElementById('character-container');
+          data.results.forEach(character => {
+            const characterElement = document.createElement('div');
+            characterElement.classList.add('character');
+            const image = document.createElement('img');
+            image.src = character.image;
+            image.alt = character.name;
+            const info = document.createElement('div');
+            info.classList.add('info');
+            info.innerHTML = `
+              <p>Nombre: ${character.name}</p>
+              <p>Estado: ${character.status}</p>
+              <p>Especie: ${character.species}</p>
+              <p>Origen: ${character.origin.name}</p>
+            `;
+            characterElement.appendChild(image);
+            characterElement.appendChild(info);
+            characterContainer.appendChild(characterElement);
+          });
+        })
+    </script>
+  </body>
+  </html>
